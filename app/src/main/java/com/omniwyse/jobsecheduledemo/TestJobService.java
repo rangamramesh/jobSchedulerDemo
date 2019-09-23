@@ -8,7 +8,7 @@ import android.support.annotation.RequiresApi;
 import android.widget.Toast;
 
 /**
- * Created by Chandra Kant on 28/11/18.
+ * Created by Ramesh on 28/11/18.
  */
 public class TestJobService  extends JobService {
     private static final String TAG = "SyncService";
@@ -17,13 +17,15 @@ public class TestJobService  extends JobService {
     @Override
     public boolean onStartJob(JobParameters params) {
         Intent service = new Intent(getApplicationContext(), LocalWordService.class);
-        getApplicationContext().startService(service);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            TestJobService.this.startForegroundService(service);
+        }else {
+            getApplicationContext().startService(service);
+        }
         Util.scheduleJob(getApplicationContext()); // reschedule the job
         Toast.makeText(getApplicationContext(), "Hiiiii", Toast.LENGTH_SHORT).show();
-
         return true;
     }
-
     @Override
     public boolean onStopJob(JobParameters params) {
         return true;

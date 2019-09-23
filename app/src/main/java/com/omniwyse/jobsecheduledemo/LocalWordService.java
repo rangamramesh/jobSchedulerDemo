@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.widget.Toast;
 
 /**
- * Created by Chandra Kant on 28/11/18.
+ * Created by Ramesh on 28/11/18.
  */
 public class LocalWordService extends Service {
     @Override
